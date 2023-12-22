@@ -1,11 +1,14 @@
 package org.example.boardservice.repository;
 
 import org.example.boardservice.config.JpaConfig;
+import org.example.boardservice.domain.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -29,10 +32,11 @@ class JpaRepositoryTest {
     @Test
     void select_test() {
         // given
-
         // when
-
+        List<Article> articles = articleRepository.findAll();
         // then
-        
+        assertThat(articles)
+                .isNotNull()
+                .hasSize(100);
     }
 }
