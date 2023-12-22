@@ -53,4 +53,20 @@ class JpaRepositoryTest {
         // then
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
     }
+
+    @DisplayName("UPDATE 테스트")
+    @Test
+    void update_test() {
+        // given
+        Article article = articleRepository.findById(1L).get();
+        article.setHashtag("#springboot");
+
+        // when
+        Article saveArticle = articleRepository.save(article);
+
+        // then
+        assertThat(saveArticle).hasFieldOrPropertyWithValue("hashtag", "#springboot");
+    }
+
+
 }
