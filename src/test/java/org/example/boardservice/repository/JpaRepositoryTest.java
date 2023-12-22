@@ -39,4 +39,18 @@ class JpaRepositoryTest {
                 .isNotNull()
                 .hasSize(100);
     }
+
+    @DisplayName("INSERT 테스트")
+    @Test
+    void insert_test() {
+        // given
+        long previousCount = articleRepository.count();
+        Article article = Article.of("new article", "new content", "#spring");
+
+        // when
+        articleRepository.save(article);
+
+        // then
+        assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
+    }
 }
