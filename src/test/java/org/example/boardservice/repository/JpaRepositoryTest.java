@@ -69,4 +69,22 @@ class JpaRepositoryTest {
     }
 
 
+    @DisplayName("DELETE 테스트")
+    @Test
+    void delete_test() {
+        // given
+        Article article = articleRepository.findById(1L).get();
+        long previousArticleCount = articleRepository.count();
+        long previousArticleCommentCount = articleCommentRepository.count();
+        int deletedCommentSize = article.getArticleComments().size();
+
+        // when
+        articleRepository.delete(article);
+
+        // then
+        assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
+        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentSize);
+    }
+
+
 }
