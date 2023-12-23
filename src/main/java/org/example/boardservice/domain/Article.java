@@ -24,9 +24,8 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,29 +41,13 @@ public class Article {
     @Setter
     private String hashtag;
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;
-
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy;
-
-
     @ToString.Exclude // 순환 참조 이슈로 인해 제외시킴.
     @OrderBy("id")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-    protected Article() {}
+    protected Article() {
+    }
 
     private Article(String title, String content, String hashtag) {
         this.title = title;
@@ -72,7 +55,7 @@ public class Article {
         this.hashtag = hashtag;
     }
 
-    public static Article of(String title, String content, String hashtag){
+    public static Article of(String title, String content, String hashtag) {
         return new Article(title, content, hashtag);
     }
 
