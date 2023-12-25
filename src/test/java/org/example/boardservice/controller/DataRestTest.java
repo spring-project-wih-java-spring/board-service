@@ -11,10 +11,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@DisplayName("Data REST API 테스트")
+@Transactional // 기본적인 테스트들은 rollback 적용
 @AutoConfigureMockMvc // mock mvc 주입
 @SpringBootTest
 //@WebMvcTest : 데이터 configuration 을 따로 읽지 않음, 설정을 해줘야하지만 귀찮음.
@@ -27,16 +30,27 @@ public class DataRestTest {
         this.mvc = mvc;
     }
 
-    @DisplayName("GET TEST")
+    @DisplayName("[api] 게시글 리스트 조회")
     @Test
-    void test() throws Exception {
-        // when
+    void articleList_select() throws Exception {
+        // given
 
+        // when
         // then
         mvc.perform(get("/api/articles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
+    }
 
+    @DisplayName("[api] 댓글 단건 조회")
+    @Test
+    void articleComment_select() throws Exception {
         // given
+
+        // when
+        // then
+        mvc.perform(get("/api/articleComments/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
     }
 }
