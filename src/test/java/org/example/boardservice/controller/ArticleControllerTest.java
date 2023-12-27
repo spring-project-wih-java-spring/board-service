@@ -31,7 +31,7 @@ class ArticleControllerTest {
         // when
         mvc.perform(get("/articles"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/index")) // 뷰 이름 테스트 가능
                 .andExpect(model().attributeExists("articles")); // 데이터 검증 가능
         // then
