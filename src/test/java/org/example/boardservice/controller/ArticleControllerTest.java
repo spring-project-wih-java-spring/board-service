@@ -48,4 +48,16 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles")); // 데이터 검증 가능
         // then
     }
+
+    @DisplayName("[view] [GET] - 게시글 검색 전용 페이지 - 정상 호출")
+    @Test
+    public void get_article_search_viewpage() throws Exception {
+        // given
+
+        // when
+        mvc.perform(get("/articles/search"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.TEXT_HTML));
+        // then
+    }
 }
