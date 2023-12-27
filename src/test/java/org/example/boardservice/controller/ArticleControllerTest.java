@@ -60,4 +60,16 @@ class ArticleControllerTest {
                 .andExpect(content().contentType(MediaType.TEXT_HTML));
         // then
     }
+
+    @DisplayName("[view] [GET] - 게시글 해시태그 검색 전용 페이지 - 정상 호출")
+    @Test
+    public void get_article_search_hashtag_viewpage() throws Exception {
+        // given
+
+        // when
+        mvc.perform(get("/articles/search-hashtag"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.TEXT_HTML));
+        // then
+    }
 }
