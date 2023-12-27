@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("View 컨트롤러 - 게시글")
-@WebMvcTest
+@WebMvcTest(ArticleController.class) // 입력한 컨트롤러만 테스트하도록 함.
 class ArticleControllerTest {
 
     private final MockMvc mvc;
@@ -32,6 +32,7 @@ class ArticleControllerTest {
         mvc.perform(get("/articles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/index")) // 뷰 이름 테스트 가능
                 .andExpect(model().attributeExists("articles")); // 데이터 검증 가능
         // then
     }
@@ -45,7 +46,10 @@ class ArticleControllerTest {
         mvc.perform(get("/articles/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("articles")); // 데이터 검증 가능
+                .andExpect(view().name("articles/detail"))
+                .andExpect(model().attributeExists("articles")) // 데이터 검증 가능
+                .andExpect(model().attributeExists("articleComments"));
+
         // then
     }
 
@@ -57,7 +61,8 @@ class ArticleControllerTest {
         // when
         mvc.perform(get("/articles/search"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/search"));
         // then
     }
 
@@ -69,7 +74,8 @@ class ArticleControllerTest {
         // when
         mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/hashtag"));
         // then
     }
 }
