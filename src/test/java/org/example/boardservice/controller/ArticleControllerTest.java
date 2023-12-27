@@ -26,7 +26,6 @@ class ArticleControllerTest {
     @DisplayName("[view] [GET] - 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
     public void get_article_viewpage() throws Exception {
-
         // given
 
         // when
@@ -34,10 +33,19 @@ class ArticleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("articles")); // 데이터 검증 가능
-
-
-
         // then
+    }
 
+    @DisplayName("[view] [GET] - 게시글 상세 페이지 - 정상 호출")
+    @Test
+    public void get_article_detail_viewpage() throws Exception {
+        // given
+
+        // when
+        mvc.perform(get("/articles/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(model().attributeExists("articles")); // 데이터 검증 가능
+        // then
     }
 }
