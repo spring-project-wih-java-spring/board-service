@@ -37,7 +37,7 @@ class ArticleCommentServiceTe1st {
 
     @DisplayName("댓글 정보 입력 시 댓글 저장")
     @Test
-    void search_articlecomment_list() {
+    void save_articlecomment_list() {
         ArticleCommentDto articleCommentDto = ArticleCommentDto.of(LocalDateTime.now(), "son",LocalDateTime.now(), "son", "content");
         sut.savaArticleComment(articleCommentDto);
 
