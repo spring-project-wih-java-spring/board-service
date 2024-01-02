@@ -15,6 +15,9 @@ HELP.md
 # queryDsl
 src/main/generated
 
+# JPA Buddy
+.jpd/
+
 # AWS User-specific
 .idea/**/aws.xml
 
