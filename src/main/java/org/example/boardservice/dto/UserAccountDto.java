@@ -16,6 +16,9 @@ public class UserAccountDto{
     private LocalDateTime modifiedAt;
     private String modifiedBy;
 
+    public UserAccountDto(String userId, String userPassword, String email, String nickname, String memo, Object o, Object o1, Object o2, Object o3) {
+    }
+
     public static UserAccountDto of(String userId, String userPassword, String email, String nickname, String memo) {
         return new UserAccountDto(userId, userPassword, email, nickname, memo, null, null, null, null);
     }
