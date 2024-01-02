@@ -10,6 +10,7 @@ import org.example.boardservice.dto.ArticleDto;
 import org.example.boardservice.dto.ArticleUpdateDto;
 import org.example.boardservice.repository.ArticleCommentRepository;
 import org.example.boardservice.repository.ArticleRepository;
+import org.example.boardservice.repository.UserAccountRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,7 @@ public class ArticleCommentService {
 
     public void saveArticleComment(ArticleCommentDto dto) {
         try {
-            Article article = articleRepository.getReferenceById(dto.articleId());
+            Article article = articleRepository.getReferenceById(dto.());
             UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
             ArticleComment articleComment = dto.toEntity(article, userAccount);
 
