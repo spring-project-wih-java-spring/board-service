@@ -1,3 +1,16 @@
+-- 테스트 계정
+-- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
+insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+    ('uno', '{noop}asdf1234', 'Uno', 'uno@mail.com', 'I am Uno.', now(), 'uno', now(), 'uno')
+;
+insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+    ('uno2', '{noop}asdf1234', 'Uno2', 'uno2@mail.com', 'I am Uno2.', now(), 'uno2', now(), 'uno2')
+;
+insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+    ('uno3', '{noop}asdf1234', 'Uno3', 'uno3@mail.com', 'I am Uno3.', now(), 'uno3', now(), 'uno3')
+;
+
+
 -- 게시글
 insert into article (title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 'Aquamarine', 'Tiphanie', 'Rich', '2023-10-05 21:10:11', '2023-09-07 13:43:58');
 insert into article (title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 'Puce', 'Carlos', 'Mel', '2023-07-06 23:50:03', '2023-03-03 06:30:14');
