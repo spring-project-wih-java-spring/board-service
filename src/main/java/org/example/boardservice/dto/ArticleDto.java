@@ -17,7 +17,7 @@ public class ArticleDto implements Serializable {
     UserAccountDto userAccountDto;
     String title;
     String content;
-    Set<HashtagDto> hashtag;
+    String hashtag;
     LocalDateTime createdAt;
     String createdBy;
     LocalDateTime modifiedAt;
@@ -34,10 +34,7 @@ public class ArticleDto implements Serializable {
                 UserAccountDto.from(entity.getUserAccount()),
                 entity.getTitle(),
                 entity.getContent(),
-                entity.getHashtag().stream()
-                        .map(HashtagDto::from)
-                        .collect(Collectors.toUnmodifiableSet())
-                ,
+                entity.getHashtag(),
                 entity.getCreatedAt(),
                 entity.getCreatedBy(),
                 entity.getModifiedAt(),
@@ -49,9 +46,8 @@ public class ArticleDto implements Serializable {
         return Article.of(
                 userAccountDto.toEntity(),
                 title,
-                content
+                content,
+                hashtag
         );
     }
-}
-
 }
