@@ -1,6 +1,7 @@
 package org.example.boardservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.boardservice.domain.Article;
 import org.example.boardservice.domain.type.SearchType;
 import org.example.boardservice.dto.ArticleDto;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional
 @Service
@@ -59,8 +61,6 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다. - articleId: " + articleId));
     }
 
-
-
     public ArticleDto searchArticle(long l) {
         return null;
     }
@@ -69,7 +69,23 @@ public class ArticleService {
         articleRepository.save(articleDto.toEntity());
     }
 
-    public void updateArticle(long l, ArticleUpdateDto articleUpdateDto) {
+    public void updateArticle(ArticleDto dto) {
+        try {
+            Article article = articleRepository.getReferenceById(dto.getId());
+
+            if (dto.getTitle() != null) {
+                article.setTitle(dto.getTitle());
+            }
+
+            if (dto.getContent() != null) {
+                article.setContent(dto.getContent());
+            }
+
+            article.setHashtag(dto.getHashtag()); // save 없이도 transactional에 의해 영속성 컨텍스트 감지가 됨.
+        } catch (EntityNotFoundException e) {
+            log.warn("게시글 업데이트 실패, 게시글을 찾을 수 없습니다. - dto: {}", dto);
+        }
+
     }
 
     public void deleteArticle(long l) {
