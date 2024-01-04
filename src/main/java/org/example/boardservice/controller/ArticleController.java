@@ -2,6 +2,7 @@ package org.example.boardservice.controller;
 
 import org.example.boardservice.domain.type.SearchType;
 import org.example.boardservice.dto.response.ArticleResponse;
+import org.example.boardservice.dto.response.ArticleWithCommentsResponse;
 import org.example.boardservice.service.ArticleService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -38,8 +39,9 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public String articles(@PathVariable Long articleId, ModelMap map) {
-        map.addAttribute("articles", null);
-        map.addAttribute("articleComment", Arrays.asList());
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
+        map.addAttribute("articles", article);
+        map.addAttribute("articleComment", article.getArticleCommentsResponse());
         return "articles/detail";
     }
 
