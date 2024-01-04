@@ -1,9 +1,13 @@
 package org.example.boardservice.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.boardservice.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class UserAccountDto{
 
     private String userId;
