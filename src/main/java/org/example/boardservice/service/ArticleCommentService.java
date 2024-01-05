@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,11 +35,11 @@ public class ArticleCommentService {
     public void saveArticleComment(ArticleCommentDto dto) {
         try {
             Article article = articleRepository.getReferenceById(dto.());
-            UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
+            UserAccount userAccount = userAccountRepository.getReferenceById(dto.getUserAccountDto().getUserId());
             ArticleComment articleComment = dto.toEntity(article, userAccount);
 
-            if (dto.parentCommentId() != null) {
-                ArticleComment parentComment = articleCommentRepository.getReferenceById(dto.parentCommentId());
+            if (dto.getParentCommentId() != null) {
+                ArticleComment parentComment = articleCommentRepository.getReferenceById(dto.getParentCommentId());
                 parentComment.addChildComment(articleComment);
             } else {
                 articleCommentRepository.save(articleComment);

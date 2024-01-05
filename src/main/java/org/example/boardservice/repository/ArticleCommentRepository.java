@@ -35,4 +35,6 @@ public interface ArticleCommentRepository extends
         bindings.bind(root.createdAt).first(DateTimeExpression::eq); // 날짜 검색 (시,분,초)
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
+
+    void deleteByIdAndUserAccount_UserId(Long articleCommentId, String userId);
 }
